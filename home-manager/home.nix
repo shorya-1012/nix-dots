@@ -13,8 +13,8 @@
    git 
    neovim
    kitty
-   btop
    tmux
+   btop
    gcc 
    python3
    nodejs
@@ -32,9 +32,15 @@
    cargo
   ];
 
+  #configure tmux
+  programs.tmux = {
+    enable = true;
+    extraConfig = builtins.readFile ../configs/tmux/tmux.conf;
+  };
+
   home.file = {
   	".config/nvim".source = ../configs/nvim;
-    ".config/tmux".source = ../configs/tmux;
+    # ".config/tmux".source = ../configs/tmux;
   	".config/rofi".source = ../configs/rofi;
   	".config/kitty".source = ../configs/kitty;
   	".config/qtile".source = ../configs/qtile;
