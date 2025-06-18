@@ -26,7 +26,7 @@
 	xset r rate 200 35 &
 	'';
    };
-  
+
   #Terminal Shells
   environment.shells = with pkgs; [zsh];
   users.defaultUserShell = pkgs.zsh;

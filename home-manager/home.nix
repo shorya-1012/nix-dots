@@ -8,16 +8,10 @@
 
   #Home Packages
   home.packages = with pkgs;[
-   vim 
-   wget
-   git 
    neovim
    kitty
    tmux
    btop
-   gcc 
-   python3
-   nodejs
    fzf
    unzip
    brave
@@ -27,9 +21,8 @@
    fastfetch
    rofi
    lazygit
+   picom
    nil
-   rustc
-   cargo
   ];
 
   #configure tmux
@@ -38,9 +31,20 @@
     extraConfig = builtins.readFile ../configs/tmux/tmux.conf;
   };
 
+  # configure picom
+  services.picom = {
+    enable = true;
+    backend = "glx";
+    fade = true;
+    settings = {
+      fade-delta = 5;
+      corner-radius = 12;
+      shadow = true;
+    };
+  };
+
   home.file = {
   	".config/nvim".source = ../configs/nvim;
-    # ".config/tmux".source = ../configs/tmux;
   	".config/rofi".source = ../configs/rofi;
   	".config/kitty".source = ../configs/kitty;
   	".config/qtile".source = ../configs/qtile;
