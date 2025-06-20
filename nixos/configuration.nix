@@ -58,7 +58,12 @@
    unzip
    gnumake
    cmake
+   cacert
  ];
+
+ environment.variables = {
+    SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+  };
 
  fonts.packages = with pkgs; [
    jetbrains-mono

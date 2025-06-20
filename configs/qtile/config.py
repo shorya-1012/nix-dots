@@ -2,9 +2,15 @@ from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile import hook
 
 mod = "mod4"
 terminal = guess_terminal()
+
+@hook.subscribe.startup_once
+def start_once():
+    import subprocess
+    subprocess.Popen(["nm-applet"])
 
 keys = [
     # Switch between windows
@@ -21,10 +27,10 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, "control"], "h", lazy.layout.shrink(), desc="Grow window to the left"),
+    Key([mod, "control"], "l", lazy.layout.grow(), desc="Grow window to the right"),
+    # Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
+    # Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -52,9 +58,13 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "a", lazy.spawn("rofi -show drun")),
 
+    #Set volume
     Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
     Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+
+    #Connect wifi
+    Key([mod], "m", lazy.spawn("networkmanager_dmenu")),  # if using dmenu version
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -129,10 +139,18 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
+                # widget.CurrentLayout(),
+                widget.GroupBox(
+                    background="#1e1e2e",  # <-- set your desired background color
+                    active="#cdd6f4",       # active group text color
+                    inactive="#6c7086",     # inactive group text color
+                    highlight_method="block",
+                    this_current_screen_border="#89b4fa",
+                    other_screen_border="#585b70",
+                    margin = 3,
+                ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -147,9 +165,26 @@ screens = [
                 # widget.StatusNotifier(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                widget.Wlan(
+                    interface = "wlo1",
+                    format='{essid} {percent:2.0%}',
+                    disconnected_message='Disconnected',
+                    update_interval=5,
+                ),
+                widget.Battery(
+                    format='{char} {percent:2.0%}',
+                    charge_char='⚡',
+                    discharge_char='🔋',
+                    empty_char='☠',
+                    full_char='✔',
+                    show_short_text=False,
+                    update_interval=30,  # seconds
+                )
                 # widget.QuickExit(),
             ],
-            24,
+            24, #Bar Height
+            margin=[10 , 0 , 0 , 0],
+            background="#1e1e2e80",
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),

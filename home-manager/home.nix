@@ -23,6 +23,8 @@
    lazygit
    picom
    nil
+   networkmanager_dmenu
+   networkmanagerapplet
   ];
 
   #configure tmux
