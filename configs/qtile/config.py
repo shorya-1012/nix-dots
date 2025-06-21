@@ -57,6 +57,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "a", lazy.spawn("rofi -show drun")),
+    Key([mod], "p", lazy.spawn("flameshot gui")),
 
     #Set volume
     Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
@@ -142,7 +143,7 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(
-                 background="#1e1e2e",
+                 # background="#1e1e2e",
                  active="#cdd6f4",
                  inactive="#6c7086",
                  highlight_method="block",
@@ -150,7 +151,8 @@ screens = [
                  other_screen_border="#585b70",
                  margin=3,
                 ),
-                widget.Prompt(),
+                widget.Spacer(length=12),
+                # widget.Prompt(),
                 widget.WindowName(),
                 widget.Spacer(),  
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
@@ -176,10 +178,10 @@ screens = [
                     full_char='✔',
                     show_short_text=False,
                     update_interval=30,
-                )
+                ),
             ],
             35, #Bar Height
-            margin=[10 , 0 , 0 , 0],
+            margin=[10 , 20 , 0 , 20],
             background="#1e1e2e80",
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta

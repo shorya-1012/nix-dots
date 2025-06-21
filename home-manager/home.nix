@@ -25,6 +25,7 @@
    nil
    networkmanager_dmenu
    networkmanagerapplet
+   flameshot
   ];
 
   #configure tmux
@@ -51,7 +52,7 @@
   	".config/kitty".source = ../configs/kitty;
   	".config/qtile".source = ../configs/qtile;
   	".config/yazi".source = ../configs/yazi;
-    "config/fastfetch".source = ../configs/fastfetch;
+    ".config/fastfetch".source = ../configs/fastfetch;
   	".zshrc".source = ../configs/.zshrc;
   };
 
