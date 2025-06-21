@@ -141,48 +141,44 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                # widget.CurrentLayout(),
                 widget.GroupBox(
-                    background="#1e1e2e",  # <-- set your desired background color
-                    active="#cdd6f4",       # active group text color
-                    inactive="#6c7086",     # inactive group text color
-                    highlight_method="block",
-                    this_current_screen_border="#89b4fa",
-                    other_screen_border="#585b70",
-                    margin = 3,
+                 background="#1e1e2e",
+                 active="#cdd6f4",
+                 inactive="#6c7086",
+                 highlight_method="block",
+                 this_current_screen_border="#89b4fa",
+                 other_screen_border="#585b70",
+                 margin=3,
                 ),
                 widget.Prompt(),
                 widget.WindowName(),
+                widget.Spacer(),  
+                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                widget.Spacer(), 
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                # widget.TextBox("default config", name="default"),
-                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
                 widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.Wlan(
-                    interface = "wlo1",
+                    interface="wlo1",
                     format='{essid} {percent:2.0%}',
-                    disconnected_message='Disconnected',
-                    update_interval=5,
+                 disconnected_message='Disconnected',
+                 update_interval=5,
                 ),
                 widget.Battery(
-                    format='{char} {percent:2.0%}',
-                    charge_char='⚡',
+                 format='{char} {percent:2.0%}',
+                 charge_char='⚡',
                     discharge_char='🔋',
                     empty_char='☠',
                     full_char='✔',
                     show_short_text=False,
-                    update_interval=30,  # seconds
+                    update_interval=30,
                 )
-                # widget.QuickExit(),
             ],
-            24, #Bar Height
+            35, #Bar Height
             margin=[10 , 0 , 0 , 0],
             background="#1e1e2e80",
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders

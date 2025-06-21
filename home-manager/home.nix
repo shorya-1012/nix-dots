@@ -51,6 +51,7 @@
   	".config/kitty".source = ../configs/kitty;
   	".config/qtile".source = ../configs/qtile;
   	".config/yazi".source = ../configs/yazi;
+    "config/fastfetch".source = ../configs/fastfetch;
   	".zshrc".source = ../configs/.zshrc;
   };
 
