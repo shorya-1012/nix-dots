@@ -26,6 +26,7 @@
    networkmanager_dmenu
    networkmanagerapplet
    flameshot
+   cava
   ];
 
   #configure tmux
@@ -53,6 +54,7 @@
   	".config/qtile".source = ../configs/qtile;
   	".config/yazi".source = ../configs/yazi;
     ".config/fastfetch".source = ../configs/fastfetch;
+    ".config/cava".source = ../configs/cava;
   	".zshrc".source = ../configs/.zshrc;
   };
 
